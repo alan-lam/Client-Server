@@ -3,6 +3,7 @@ import java.net.ServerSocket;
 import java.io.*;
 
 public class Client {
+
    private Socket socket = null;
    private PrintWriter out = null;
    private BufferedReader in = null;
