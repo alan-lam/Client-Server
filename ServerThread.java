@@ -5,22 +5,29 @@ import java.text.*;
 import java.util.*;
 
 public class ServerThread {
+   static Vector<ClientHandler> ar = new Vector<>();
+   static int i = 0;
+
    public static void main (String[] args) throws IOException {
       ServerSocket serverSocket = new ServerSocket(5056);
       System.out.println("Server started");
 
+      Socket clientSocket = null;
+
       while (true) {
-         Socket clientSocket = null;
          try {
             System.out.println("Waiting for a client");
             clientSocket = serverSocket.accept();
-            System.out.println("Client accepted");
+            System.out.println("Client " + i + " accepted");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out= new PrintWriter(clientSocket.getOutputStream(), true);
 
-            Thread t = new ClientHandler(clientSocket, in, out);
+            ClientHandler c = new ClientHandler(clientSocket, "client " + i, in, out);
+            Thread t = new Thread(c);
+            ar.add(c);
             t.start();
+            i++;
          }
          catch (Exception e) {
             clientSocket.close();
@@ -30,55 +37,58 @@ public class ServerThread {
    }
 }
 
-class ClientHandler extends Thread {
-   DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-   DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
+class ClientHandler implements Runnable {
+   private String name;
    final BufferedReader in;
    final PrintWriter out;
    final Socket s;
+   boolean isLoggedIn = true;
 	
-   public ClientHandler(Socket s, BufferedReader in, PrintWriter out) {
+   public ClientHandler(Socket s, String name, BufferedReader in, PrintWriter out) {
       this.s = s;
       this.in = in;
       this.out = out;
+      this.name = name;
    }
 
    @Override
    public void run() {
       String received;
-      String toSend;
+
+      out.println("Hello. You are " + this.name);
+
       while (true) {
          try {
-            out.println("What do you want?[Date | Time]");
             received = in.readLine();
-            if (received.equals("Exit")) {
+            if (received.equals("logout")) {
+               this.isLoggedIn = false;
                this.s.close();
                break;
             }
 
-            Date date = new Date();
+            StringTokenizer st = new StringTokenizer(received, "#");
+            String toSend = st.nextToken();
+            String recipient = st.nextToken();
 
-            if (received.equals("Date")) {
-               toSend = fordate.format(date);
-               out.println(toSend);
-            }
-            else if (received.equals("Time")) {
-               toSend = fortime.format(date);
-               out.println(toSend);
-            }
-            else {
-               out.println("Invalid input");
+            System.out.println(recipient);
+            System.out.println(toSend);
+
+            for (ClientHandler mc : ServerThread.ar) {
+               if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
+                  mc.out.println(this.name + ": " + toSend);
+                  break;
+               }
             }
          }
-         catch (IOException e) {
-			   System.out.println(e);
+         catch (Exception e) {
+			   System.out.println("H: " + e);
          }
       }
       try { 
 		   this.in.close();
 		   this.out.close();
       }
-      catch (IOException e) {
+      catch (Exception e) {
          System.out.println(e);
       }
    }
