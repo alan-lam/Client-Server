@@ -70,9 +70,6 @@ class ClientHandler implements Runnable {
             String toSend = st.nextToken();
             String recipient = st.nextToken();
 
-            System.out.println(recipient);
-            System.out.println(toSend);
-
             for (ClientHandler mc : ServerThread.ar) {
                if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
                   mc.out.println(this.name + ": " + toSend);
@@ -81,7 +78,7 @@ class ClientHandler implements Runnable {
             }
          }
          catch (Exception e) {
-			   System.out.println("H: " + e);
+			   System.out.println(e);
          }
       }
       try { 
