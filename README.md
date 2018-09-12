@@ -2,6 +2,9 @@
 
 A simple client/server application using Java Sockets
 
-The one with threads is a messaging application for multiple clients
+Single is one server + one client
 
-The plain one is an echo bot for one client
+Multi is one server + multiple clients
+
+Three is one server + three clients
+
