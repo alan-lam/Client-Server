@@ -4,7 +4,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
-public class ServerThread {
+public class Server {
    static Vector<ClientHandler> ar = new Vector<>();
    static int i = 1;
 
@@ -73,7 +73,7 @@ class ClientHandler implements Runnable {
             String toSend = st.nextToken();
             String recipient = st.nextToken();
 
-            for (ClientHandler mc : ServerThread.ar) {
+            for (ClientHandler mc : Server.ar) {
                if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
                   mc.out.println(this.name + ": " + toSend);
                   break;
