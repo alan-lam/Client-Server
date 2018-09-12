@@ -1,5 +1,4 @@
-import java.net.Socket;
-import java.net.ServerSocket;
+import java.net.*;
 import java.io.*;
 
 public class Server {
@@ -33,11 +32,11 @@ public class Server {
             }
          }
          catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
          }
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
       try {
          serverSocket.close();
@@ -46,7 +45,7 @@ public class Server {
          in.close();
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       } 
    }
 

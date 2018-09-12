@@ -1,5 +1,4 @@
-import java.net.Socket;
-import java.net.ServerSocket;
+import java.net.*;
 import java.io.*;
 
 public class Client {
@@ -18,7 +17,7 @@ public class Client {
          sys_in = new BufferedReader(new InputStreamReader(System.in));
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
 
       String fromServer = null;
@@ -34,7 +33,7 @@ public class Client {
          }
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
       try {
          socket.close();
@@ -43,7 +42,7 @@ public class Client {
          sys_in.close();
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
    }
 

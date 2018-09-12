@@ -1,5 +1,4 @@
-import java.net.Socket;
-import java.net.ServerSocket;
+import java.net.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -31,7 +30,7 @@ public class Server {
          }
          catch (Exception e) {
             clientSocket.close();
-            System.out.println(e);
+            e.printStackTrace();
          }
       }
    }
@@ -44,7 +43,7 @@ class ClientHandler implements Runnable {
    final Socket s;
    boolean isLoggedIn = true;
 	
-   public ClientHandler(Socket s, String name, BufferedReader in, PrintWriter out) {
+   public ClientHandler (Socket s, String name, BufferedReader in, PrintWriter out) {
       this.s = s;
       this.in = in;
       this.out = out;
@@ -81,7 +80,7 @@ class ClientHandler implements Runnable {
             }
          }
          catch (Exception e) {
-			   System.out.println(e);
+			   e.printStackTrace();
          }
       }
       try { 
@@ -89,7 +88,7 @@ class ClientHandler implements Runnable {
 		   this.out.close();
       }
       catch (Exception e) {
-         System.out.println(e);
+         e.printStackTrace();
       }
    }
 }
