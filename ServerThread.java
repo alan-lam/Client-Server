@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ServerThread {
    static Vector<ClientHandler> ar = new Vector<>();
-   static int i = 0;
+   static int i = 1;
 
    public static void main (String[] args) throws IOException {
       ServerSocket serverSocket = new ServerSocket(5056);
@@ -60,7 +60,10 @@ class ClientHandler implements Runnable {
       while (true) {
          try {
             received = in.readLine();
-            if (received.equals("logout")) {
+            if (received == null) {
+               break;
+            }
+            else if (received.equals("logout")) {
                this.isLoggedIn = false;
                this.s.close();
                break;
