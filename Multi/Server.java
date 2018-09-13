@@ -77,8 +77,8 @@ class ClientHandler implements Runnable {
             }
 
             StringTokenizer st = new StringTokenizer(received, "@");
-            String recipient = st.nextToken();
             String toSend = st.nextToken();
+            String recipient = st.nextToken();
 
             for (ClientHandler mc : Server.ar) {
                if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
