@@ -5,7 +5,7 @@ public class Client {
    
    public static void main (String[] args) throws IOException, UnknownHostException {
 
-      Socket s = new Socket("localhost", 5056);
+      Socket s = new Socket("localhost", 9563);
       BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
       BufferedReader sys_in = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(s.getOutputStream(), true);
@@ -17,7 +17,7 @@ public class Client {
                try {
                   String message = sys_in.readLine();
                   out.println(message);
-                  if (message.equals("logout")) {
+                  if (message.equals("#logout")) {
                      sys_in.close();
                      break;
                   }

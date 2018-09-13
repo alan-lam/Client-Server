@@ -7,7 +7,7 @@ public class Server {
    static Vector<ClientHandler> ar = new Vector<>();
 
    public static void main (String[] args) throws IOException {
-      ServerSocket serverSocket = new ServerSocket(5056);
+      ServerSocket serverSocket = new ServerSocket(9563);
       System.out.println("Server started");
 
       Socket clientSocket = null;
