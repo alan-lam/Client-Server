@@ -68,27 +68,36 @@ class ClientHandler implements Runnable {
          try {
             received = in.readLine();
             if (received == null) {
+               this.isLoggedIn = false;
                break;
             }
-            else if (received.equals("logout")) {
+            else if (received.equals("#logout")) {
                this.isLoggedIn = false;
                this.s.close();
                break;
             }
+            else if (received.equals("#active")) {
+               for (ClientHandler mc : Server.ar) {
+                  if (mc.isLoggedIn == true) {
+                     out.println(mc.name);
+                  }
+               }
+            }
+            else {
+               StringTokenizer st = new StringTokenizer(received, "@");
+               String toSend = st.nextToken();
+               String recipient = st.nextToken();
 
-            StringTokenizer st = new StringTokenizer(received, "@");
-            String toSend = st.nextToken();
-            String recipient = st.nextToken();
-
-            for (ClientHandler mc : Server.ar) {
-               if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
-                  mc.out.println(this.name + ": " + toSend);
-                  break;
+               for (ClientHandler mc : Server.ar) {
+                  if (mc.name.equals(recipient) && mc.isLoggedIn == true) {
+                     mc.out.println(this.name + ": " + toSend);
+                     break;
+                  }
                }
             }
          }
          catch (Exception e) {
-			   e.printStackTrace();
+            e.printStackTrace();
          }
       }
       try { 
