@@ -3,10 +3,10 @@ import java.io.*;
 
 public class Server {
 
-   private ServerSocket serverSocket = null;
-   private Socket clientSocket = null;
-   private PrintWriter out = null;
-   private BufferedReader in = null;
+   private ServerSocket serverSocket;
+   private Socket clientSocket;
+   private PrintWriter out;
+   private BufferedReader in;
 
    public Server (int port) {
       try {
@@ -21,7 +21,7 @@ public class Server {
          in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
          
          out.println("Server: This is an echo bot");
-         String fromClient = null;
+         String fromClient;
          try {
             while ((fromClient = in.readLine()) != null) {
                if (fromClient.equals("Bye.")) {
@@ -50,7 +50,7 @@ public class Server {
    }
 
    public static void main (String[] args) throws IOException {
-      Server server = new Server(9999);
+      Server server = new Server(9563);
    }
 }
 
