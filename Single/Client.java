@@ -47,7 +47,7 @@ public class Client {
    }
 
    public static void main (String[] args) throws IOException {
-      Client client = new Client("localhost", 9563);
+      Client client = new Client("192.168.1.14", 9563);
    }
 }
 
