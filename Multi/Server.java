@@ -1,10 +1,9 @@
 import java.net.*;
 import java.io.*;
-import java.text.*;
 import java.util.*;
 
 public class Server {
-   static Vector<ClientHandler> ar = new Vector<>();
+   static ArrayList<ClientHandler> ar = new ArrayList<>();
 
    public static void main (String[] args) throws IOException {
       ServerSocket serverSocket = new ServerSocket(9563);
