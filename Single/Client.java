@@ -3,10 +3,10 @@ import java.io.*;
 
 public class Client {
 
-   private Socket socket = null;
-   private PrintWriter out = null;
-   private BufferedReader in = null;
-   private BufferedReader sys_in = null;
+   private Socket socket;
+   private PrintWriter out;
+   private BufferedReader in;
+   private BufferedReader sys_in;
 
    public Client (String address, int port) {
       try {
@@ -20,7 +20,7 @@ public class Client {
          e.printStackTrace();
       }
 
-      String fromServer = null;
+      String fromServer;
       try {
          while ((fromServer = in.readLine()) != null) {
             System.out.println(fromServer);
