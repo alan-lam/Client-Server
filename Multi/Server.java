@@ -7,7 +7,16 @@ public class Server {
 
    public static void main (String[] args) throws IOException {
       ServerSocket serverSocket = new ServerSocket(9563);
-      System.out.println("Server started");
+
+      InetAddress ip = null;
+      try {
+         ip = InetAddress.getLocalHost();
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      System.out.println("Server started. IP Address: " + ip.getHostAddress());
 
       Socket clientSocket = null;
 
@@ -76,9 +85,11 @@ class ClientHandler implements Runnable {
                break;
             }
             else if (received.equals("#active")) {
+              int i = 1;
                for (ClientHandler mc : Server.ar) {
                   if (mc.isLoggedIn == true) {
-                     out.println(mc.name);
+                     out.println(i + ": " + mc.name);
+                     i++;
                   }
                }
             }

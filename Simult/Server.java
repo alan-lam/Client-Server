@@ -8,6 +8,15 @@ public class Server {
    static CountDownLatch x = new CountDownLatch(1);
 
    public static void main (String[] args) throws IOException {
+     InetAddress ip = null;
+      try {
+         ip = InetAddress.getLocalHost();
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      System.out.println("Server started. IP Address: " + ip.getHostAddress());
+
       startServer();
    }
 
