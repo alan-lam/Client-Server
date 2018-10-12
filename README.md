@@ -1,6 +1,6 @@
 # Client-Server
 
-A simple client/server application using Java Sockets
+A client/server application using Java Sockets
 
 Single is one server + one client. The server echoes whatever the client sends. Each is in its own terminal.
 
